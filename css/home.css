@@ -1,0 +1,158 @@
+/* ================================================================
+   home.css — Pantalla de inicio · Programas de Obra Metta
+   ================================================================ */
+
+:root {
+  --metta-ink: #3A3D3F;
+  --metta-sky: #95B5D5;
+  --metta-sky-soft: #E6EEF6;
+  --bg: #F3F5F7;
+  --card: #FFFFFF;
+  --border: #DDE2E7;
+  --text: #22272B;
+  --text-dim: #66707A;
+  --ok: #4A8B6A;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+body {
+  min-height: 100vh; display: flex; flex-direction: column;
+  background:
+    radial-gradient(1200px 500px at 85% -10%, rgba(149, 181, 213, .28), transparent 60%),
+    var(--bg);
+  color: var(--text); font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------- ENCABEZADO ---------------- */
+.home-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  width: 100%; max-width: 1120px; margin: 0 auto; padding: 28px 24px 0;
+}
+.home-logo { height: 58px; width: auto; display: block; }
+.home-tag {
+  font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-dim); border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px;
+  background: rgba(255, 255, 255, .6);
+}
+
+/* ---------------- INTRO ---------------- */
+.home { flex: 1; width: 100%; max-width: 1120px; margin: 0 auto; padding: 56px 24px 48px; }
+.intro { margin-bottom: 36px; }
+.eyebrow {
+  margin: 0 0 10px; font-size: 12px; font-weight: 600; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--text-dim);
+  display: flex; align-items: center; gap: 10px;
+}
+.eyebrow::before { content: ''; width: 28px; height: 4px; background: var(--metta-sky); border-radius: 1px; }
+.intro h1 {
+  margin: 0; font-size: clamp(32px, 5vw, 48px); font-weight: 800; letter-spacing: -.02em;
+  color: var(--metta-ink); line-height: 1.05;
+}
+.lead { margin: 12px 0 0; font-size: 16px; color: var(--text-dim); max-width: 52ch; line-height: 1.5; }
+
+/* ---------------- TARJETAS ---------------- */
+.obras { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 24px; }
+
+.obra-card {
+  display: flex; flex-direction: column; overflow: hidden;
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  color: inherit; text-decoration: none;
+  box-shadow: 0 1px 2px rgba(20, 24, 28, .04), 0 8px 24px rgba(20, 24, 28, .05);
+  transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s, border-color .25s;
+  animation: entrar .5s cubic-bezier(.2, .8, .2, 1) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+@keyframes entrar { from { opacity: 0; transform: translateY(14px); } }
+.obra-card:hover {
+  transform: translateY(-4px); border-color: #C9D6E3;
+  box-shadow: 0 2px 4px rgba(20, 24, 28, .05), 0 18px 40px rgba(20, 24, 28, .10);
+}
+.obra-card:focus-visible { outline: 3px solid var(--metta-sky); outline-offset: 3px; }
+
+.obra-visual {
+  position: relative; height: 210px; display: grid; place-items: center;
+  background:
+    linear-gradient(160deg, #F4F8FB 0%, var(--metta-sky-soft) 100%);
+  border-bottom: 1px solid var(--border);
+}
+.obra-visual::after {          /* barra azul del logotipo Metta */
+  content: ''; position: absolute; left: 24px; top: 0; width: 56px; height: 6px;
+  background: var(--metta-sky); border-radius: 0 0 2px 2px;
+}
+.obra-visual svg {
+  width: min(72%, 300px); height: auto; overflow: visible;
+  fill: none; stroke: var(--metta-ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+  transition: transform .4s cubic-bezier(.2, .8, .2, 1);
+}
+.obra-visual svg .ola { stroke: #5D8DBE; }
+.obra-visual svg .sol { stroke: #C99A3A; }
+.obra-card:hover .obra-visual svg { transform: scale(1.04); }
+
+.obra-estado {
+  position: absolute; right: 16px; top: 16px;
+  font-size: 11px; font-weight: 600; letter-spacing: .04em;
+  background: #fff; color: var(--metta-ink); border: 1px solid var(--border);
+  padding: 5px 10px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.obra-estado::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
+.obra-card.is-loading .obra-estado::before { background: var(--border); }
+
+.obra-body { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 18px; flex: 1; }
+.obra-nombre { margin: 0; font-size: 30px; font-weight: 800; letter-spacing: .01em; color: var(--metta-ink); line-height: 1.1; }
+.obra-sub { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+
+.avance-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+.avance-label { font-size: 12px; color: var(--text-dim); font-weight: 500; }
+.avance-valor { font-family: var(--font-mono); font-size: 20px; font-weight: 500; color: var(--metta-ink); }
+.avance-barra { height: 8px; background: #EDF0F3; border-radius: 999px; overflow: hidden; }
+.avance-barra span {
+  display: block; height: 100%; width: 0; border-radius: inherit;
+  background: linear-gradient(90deg, var(--metta-ink), #5F6670);
+  transition: width .9s cubic-bezier(.2, .8, .2, 1);
+}
+
+.obra-datos {
+  margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+  padding-top: 16px; border-top: 1px solid var(--border);
+}
+.obra-datos dt { font-size: 11px; color: var(--text-dim); margin-bottom: 3px; }
+.obra-datos dd { margin: 0; font-size: 13px; font-weight: 600; color: var(--text); font-family: var(--font-mono); }
+.obra-card.is-loading dd, .obra-card.is-loading .avance-valor { color: #B8C0C8; }
+
+.obra-cta {
+  margin-top: auto; align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--metta-ink); color: #fff; font-weight: 600; font-size: 14px;
+  padding: 11px 18px; border-radius: 10px;
+  transition: gap .2s, background .2s;
+}
+.obra-card:hover .obra-cta { gap: 12px; background: #26292B; }
+
+/* ---------------- PIE ---------------- */
+.home-footer {
+  width: 100%; max-width: 1120px; margin: 0 auto; padding: 20px 24px 32px;
+  display: flex; gap: 8px; flex-wrap: wrap; font-size: 12px; color: var(--text-dim);
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 600px) {
+  .home-header { padding: 20px 16px 0; }
+  .home-logo { height: 44px; }
+  .home-tag { display: none; }
+  .home { padding: 36px 16px 32px; }
+  .obra-visual { height: 170px; }
+  .obra-body { padding: 18px; }
+  .obra-nombre { font-size: 26px; }
+  .obra-datos dd { font-size: 12px; }
+  .home-footer { padding: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obra-card, .obra-visual svg, .avance-barra span { animation: none; transition: none; }
+}
