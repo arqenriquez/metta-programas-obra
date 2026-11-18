@@ -7,3 +7,6 @@ desktop.ini
 *.log
 *.mpp
 .claude/
+
+.vercel
+.env*
